@@ -100,7 +100,7 @@ const games = fs.readdirSync(ROOT)
   .map((f) => {
     const h1 = (fs.readFileSync(path.join(ROOT, f), 'utf8').match(/<h1[^>]*>([^<]+)<\/h1>/) || [])[1] || '';
     // 뒤에 붙는 일반어는 뗀다. "지뢰찾기 온라인" 은 아티클에서 "지뢰찾기" 로 부른다.
-    const raw = h1.split('(')[0].trim().replace(/s*(온라인|게임|무료)$/, '').trim();
+    const raw = h1.split('(')[0].trim().replace(/\s*(온라인|게임|무료)$/, '').trim();
     return { file: f, name: raw || f.replace('.html', '') };
   })
   .filter((g) => g.name);

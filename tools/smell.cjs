@@ -70,7 +70,21 @@ for (const f of files) {
     if (!legal && cv < 0.30) issues.push(`문단 길이 변동계수 ${cv.toFixed(2)} (0.30 미만이면 너무 고릅니다)`);
   }
 
-  // 6) 목록 항목이 전부 "굵은 말 — 설명" 형태면 틀에 부은 것이다
+  // 6) 쉼표로 절 잇기 — 나열이 아닌데 쉼표로 문장을 이으면 읽는 호흡이 늘어진다.
+  //
+  // ★ "~고, ~다" 는 한 문장에 두 가지를 밀어 넣는 습관이다. 끊으면 대부분 더 잘 읽힌다.
+  //   실측 2026-08-29: 아티클 네 편에 16건 있었다. 나열 쉼표(A, B, C)는 잡지 않는다.
+  //   "신고, 참고" 처럼 명사가 고로 끝나는 나열은 오탐이라 먼저 지운다.
+  const NOUN_GO = /(냉장고|선고|사고|신고|광고|창고|참고|최고|중고|원고|재고|경고|예고|금고|상고|항고), /g;
+  const JOIN = /[^.?!]{10,}(고|며|는데|지만|아서|어서|면서|니까|라서),\s/;
+  const blocks = [...main.matchAll(/<(p|li)[^>]*>([\s\S]*?)<\/\1>/g)]
+    .map((x) => strip(x[2]));
+  const joins = blocks.filter((b) => JOIN.test(b.replace(NOUN_GO, ' ')));
+  if (!legal && joins.length) {
+    issues.push(`쉼표로 절 잇기 ${joins.length}건 — 첫 건: "${(joins[0].replace(NOUN_GO, ' ').match(JOIN) || [''])[0].trim().slice(-30)}"`);
+  }
+
+  // 7) 목록 항목이 전부 "굵은 말 — 설명" 형태면 틀에 부은 것이다
   const li = [...main.matchAll(/<li>([\s\S]*?)<\/li>/g)].map((x) => x[1]);
   const dashed = li.filter((s) => /—|&mdash;/.test(s)).length;
   if (li.length >= 4 && dashed === li.length) issues.push(`목록 ${li.length}개가 전부 "말 — 설명" 형식`);

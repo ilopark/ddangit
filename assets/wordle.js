@@ -1,26 +1,40 @@
-/* wordle.js — 한글 워들 (KPI 시트). 3글자 음절 단위 */
+/* wordle.js — 한글 워들 (KPI 시트). 3글자 · 무제한 시도 */
 (function(){
   "use strict";
-  const WORDS=["아이스","컴퓨터","냉장고","무지개","해바라","도서관","자전거","고양이","강아지","비행기",
-    "코끼리","바나나","선생님","친구들","운동화","계산기","사무실","보고서","프린터","커피숍",
-    "지하철","엘리베","텔레비","라디오","카메라","냉면집","떡볶이","김치찌","순두부","불고기",
-    "회의실","출근길","점심때","월요일","금요일","연차비","보너스","야근중","퇴근후","사장님",
-    "스프레","엑셀표","데이터","마우스","키보드","모니터","노트북","충전기","이어폰","블루투"];
+  const WORDS=[
+    "아이스","컴퓨터","냉장고","무지개","도서관","자전거","고양이","강아지","비행기","코끼리",
+    "바나나","선생님","운동화","계산기","사무실","보고서","프린터","지하철","라디오","카메라",
+    "떡볶이","불고기","회의실","월요일","화요일","수요일","목요일","금요일","보너스","마우스",
+    "키보드","모니터","노트북","충전기","이어폰","세탁기","청소기","에어컨","선풍기","백화점",
+    "편의점","미용실","주차장","정류장","신호등","아파트","운동장","놀이터","수영장","미술관",
+    "박물관","동물원","식물원","우체국","경찰서","소방차","구급차","자동차","잠수함","우주선",
+    "무궁화","진달래","개나리","봉숭아","민들레","소나무","도토리","다람쥐","너구리","원숭이",
+    "거북이","두꺼비","개구리","올챙이","잠자리","메뚜기","사마귀","지렁이","달팽이","비빔밥",
+    "볶음밥","된장국","순두부","갈비탕","설렁탕","삼계탕","바닐라","초콜릿","목걸이","귀걸이",
+    "슬리퍼","티셔츠","목도리","지우개","색연필","책가방","숟가락","젓가락","주전자","리모컨",
+    "스피커","헤드폰","마이크","손전등","건전지","배터리","장우산","자물쇠","손잡이","형광등",
+    "스위치","담벼락","바닷가","갈매기","산책로","오솔길","지름길","소나기","이슬비","함박눈",
+    "아침밥","점심밥","저녁밥","일요일","결혼식","졸업식","입학식","케이크","우체통","기차역",
+    "승용차","운전사","승무원","조종사","회사원","공무원","요리사","미용사","간호사","변호사",
+    "교수님","학생증","운동회","체육복","줄넘기","축구공","농구공","야구공","배구공","탁구채",
+    "피아노","플루트","실로폰","계산대","분식집","장난감","인형극","종이배","손수건","김밥집"
+  ];
   const $=(s)=>document.querySelector(s);
-  const LEN=3, TRIES=6;
-  let answer="", row=0, over=false;
+  const LEN=3, KEY="ddanjit-wordle-best";
+  let answer="", tries=0, solved=false, best=0;
 
   function build(){
+    try{best=+localStorage.getItem(KEY)||0;}catch(e){}
     $('#scorebox').innerHTML=
-      '<div class="stat"><div class="k">기회</div><div class="v num" id="left">6</div></div>'+
-      '<div class="stat"><div class="k">글자</div><div class="v num">3</div></div>';
+      '<div class="stat"><div class="k">시도</div><div class="v num" id="tries">0</div></div>'+
+      '<div class="stat"><div class="k">최소 기록</div><div class="v num" id="best">'+(best||'-')+'</div></div>';
     $('#play').innerHTML=
       '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">'+
         '<button class="btn" id="newgame" type="button">새 단어(F9)</button>'+
-        '<span class="sub" style="color:var(--muted);font-size:11.5px">세 글자 단어를 입력하고 Enter</span>'+
+        '<span class="sub" style="color:var(--muted);font-size:11.5px">정답을 맞힐 때까지 몇 번이든 도전하세요</span>'+
       '</div>'+
-      '<div class="board" id="board" role="grid" aria-label="워들 판"'+
-        ' style="grid-template-columns:repeat(3,64px);grid-template-rows:repeat(6,64px)"></div>'+
+      '<div class="board" id="wb" role="grid" aria-label="워들 판"'+
+        ' style="grid-template-columns:repeat(3,60px);grid-auto-rows:60px;min-height:2px"></div>'+
       '<form id="wform" style="margin-top:12px;display:flex;gap:8px;max-width:360px">'+
         '<label for="win" class="sr-only">단어 입력</label>'+
         '<input id="win" type="text" maxlength="3" autocomplete="off" spellcheck="false"'+
@@ -33,73 +47,72 @@
       '<div id="msg" aria-live="polite" style="margin-top:10px;color:var(--muted);font-size:12.5px;min-height:18px"></div>'+
       '<div class="banner" id="banner" role="status" aria-live="polite"><div class="box"><h3 id="bt">-</h3><p id="bm"></p>'+
         '<button class="btn" id="bb" type="button">새 단어</button></div></div>';
-    const b=$('#board');
-    for(let i=0;i<LEN*TRIES;i++){
-      const c=document.createElement('div');
-      c.className='cell';c.setAttribute('role','gridcell');
-      c.style.cssText+='font-size:28px;font-weight:700;background:var(--cell-bg)';
-      b.appendChild(c);
-    }
     $('#wform').addEventListener('submit',submit);
-    $('#win').addEventListener('input',preview);
     $('#newgame').addEventListener('click',reset);
     $('#bb').addEventListener('click',reset);
     reset();
   }
 
-  function cell(r,c){return $('#board').children[r*LEN+c];}
   function reset(){
     answer=WORDS[(Math.random()*WORDS.length)|0];
-    row=0;over=false;
-    for(let i=0;i<LEN*TRIES;i++){const c=$('#board').children[i];c.textContent='';c.style.background='var(--cell-bg)';c.style.color='var(--cell-fg)';c.style.borderColor='var(--grid-line)';}
-    $('#left').textContent=TRIES;
+    tries=0; solved=false;
+    $('#wb').innerHTML='';
+    $('#tries').textContent='0';
     $('#msg').textContent='';
     $('#banner').classList.remove('show');
-    const inp=$('#win');inp.value='';inp.disabled=false;inp.focus();
-    window.DDANJIT.setStatus('입력 대기', TRIES);
+    const inp=$('#win'); inp.value=''; inp.disabled=false; inp.focus();
+    window.DDANJIT.setStatus('입력 대기', 0);
   }
-  function preview(e){
-    if(window.DDANJIT.bossActive){e.target.value='';return;}
-    const v=[...e.target.value].slice(0,LEN);
-    for(let c=0;c<LEN;c++){ cell(row,c).textContent = v[c]||''; }
-  }
+
   function evaluate(guess){
-    // 표준 2-패스: green 우선, 그 다음 yellow
     const res=new Array(LEN).fill('gray');
-    const ansArr=[...answer], gArr=[...guess];
-    const used=new Array(LEN).fill(false);
-    for(let i=0;i<LEN;i++){ if(gArr[i]===ansArr[i]){res[i]='green';used[i]=true;} }
+    const ans=[...answer], g=[...guess], used=new Array(LEN).fill(false);
+    for(let i=0;i<LEN;i++){ if(g[i]===ans[i]){res[i]='green';used[i]=true;} }
     for(let i=0;i<LEN;i++){
       if(res[i]==='green')continue;
-      for(let j=0;j<LEN;j++){ if(!used[j]&&gArr[i]===ansArr[j]){res[i]='yellow';used[j]=true;break;} }
+      for(let j=0;j<LEN;j++){ if(!used[j]&&g[i]===ans[j]){res[i]='yellow';used[j]=true;break;} }
     }
     return res;
   }
+
+  function appendRow(guess,res){
+    const wb=$('#wb'), g=[...guess];
+    for(let c=0;c<LEN;c++){
+      const cell=document.createElement('div');
+      cell.className='cell'; cell.setAttribute('role','gridcell');
+      cell.style.cssText+='font-size:26px;font-weight:700';
+      cell.textContent=g[c];
+      if(res[c]==='green'){cell.style.background='var(--good)';cell.style.color='#fff';}
+      else if(res[c]==='yellow'){cell.style.background='var(--warn)';cell.style.color='#fff';}
+      else{cell.style.background='var(--head-bg)';cell.style.color='var(--muted)';}
+      wb.appendChild(cell);
+    }
+  }
+
   function submit(e){
     e.preventDefault();
-    if(over||window.DDANJIT.bossActive)return;
+    if(solved||window.DDANJIT.bossActive)return;
     const inp=$('#win');
     const guess=[...inp.value].slice(0,LEN).join('');
     if([...guess].length!==LEN){ msg('세 글자를 입력하세요'); return; }
     if(!/^[가-힣]{3}$/.test(guess)){ msg('한글 세 글자만 가능합니다'); return; }
     const res=evaluate(guess);
-    const gArr=[...guess];
-    for(let c=0;c<LEN;c++){
-      const cel=cell(row,c);
-      cel.textContent=gArr[c];
-      if(res[c]==='green'){cel.style.background='var(--good)';cel.style.color='#fff';cel.style.borderColor='var(--good)';}
-      else if(res[c]==='yellow'){cel.style.background='var(--warn)';cel.style.color='#fff';cel.style.borderColor='var(--warn)';}
-      else{cel.style.background='var(--head-bg)';cel.style.color='var(--muted)';}
+    appendRow(guess,res);
+    tries++;
+    $('#tries').textContent=tries;
+    inp.value=''; inp.focus();
+    window.DDANJIT.setStatus(null, tries);
+    // 방금 행이 보이도록 스크롤
+    $('#wb').lastElementChild.scrollIntoView({block:'nearest'});
+    if(res.every(r=>r==='green')){
+      solved=true; inp.disabled=true;
+      if(!best || tries<best){ best=tries; try{localStorage.setItem(KEY,best);}catch(err){} $('#best').textContent=best; }
+      banner('정답! 🎉','"'+answer+'" — '+tries+'번 만에 맞혔어요');
+      window.DDANJIT.setStatus('정답',tries);
     }
-    row++;
-    $('#left').textContent=TRIES-row;
-    inp.value='';
-    window.DDANJIT.setStatus(null, TRIES-row);
-    if(res.every(r=>r==='green')){ over=true;inp.disabled=true;banner('정답! 🎉','오늘의 단어: '+answer+' ('+row+'번 만에)'); window.DDANJIT.setStatus('정답',0); }
-    else if(row>=TRIES){ over=true;inp.disabled=true;banner('아쉽네요','정답은 "'+answer+'" 였습니다'); }
   }
-  function msg(t){$('#msg').textContent=t;setTimeout(()=>{if($('#msg').textContent===t)$('#msg').textContent='';},1800);}
-  function banner(t,m){$('#bt').textContent=t;$('#bm').textContent=m;$('#banner').classList.add('show');}
+  function msg(t){ $('#msg').textContent=t; setTimeout(()=>{if($('#msg').textContent===t)$('#msg').textContent='';},1800); }
+  function banner(t,m){ $('#bt').textContent=t; $('#bm').textContent=m; $('#banner').classList.add('show'); }
 
   window.DDANJIT.register({ init: build });
 })();

@@ -81,6 +81,52 @@ for (const f of files) {
   if (issues.length) bad++;
 }
 
+// ── 게임 목록이 낡았는지 ────────────────────────────────────────────────
+//
+// ★ 게임을 추가하면 아티클을 같이 고쳐야 하는데 그걸 매번 잊는다.
+//   실측 2026-08-29: 게임이 5개에서 10개로 늘어난 동안 아티클 두 편과 index·about 은
+//   그대로 5개만 소개하고 있었다. 제목에 "추천 5선" 이 박혀 있었던 것도 같은 이유다.
+//   그래서 제목에 개수를 쓰지 않기로 했고, 누락은 여기서 잡는다.
+const NOT_GAME = ['about.html', 'privacy.html', 'index.html', 'office-games.html',
+  'no-install-games.html'];
+const listPages = ['index.html', 'about.html', 'office-games.html', 'no-install-games.html'];
+
+// 게임 이름은 각 페이지의 h1 에서 뽑는다. 괄호 앞까지가 대표 이름이다.
+//   "소코반 (창고지기)" → 소코반,  "네모네모로직 (노노그램)" → 네모네모로직
+// 아티클은 링크가 아니라 본문에서 이름으로 언급하므로 이름으로 대조한다.
+const games = fs.readdirSync(ROOT)
+  .filter((f) => f.endsWith('.html') && !f.startsWith('google') && !f.startsWith('guide-'))
+  .filter((f) => !NOT_GAME.includes(f))
+  .map((f) => {
+    const h1 = (fs.readFileSync(path.join(ROOT, f), 'utf8').match(/<h1[^>]*>([^<]+)<\/h1>/) || [])[1] || '';
+    // 뒤에 붙는 일반어는 뗀다. "지뢰찾기 온라인" 은 아티클에서 "지뢰찾기" 로 부른다.
+    const raw = h1.split('(')[0].trim().replace(/s*(온라인|게임|무료)$/, '').trim();
+    return { file: f, name: raw || f.replace('.html', '') };
+  })
+  .filter((g) => g.name);
+
+// index.html 은 2048 을 자기 화면에 띄우므로 그 이름도 게임 목록에 넣는다.
+if (!games.some((g) => g.name === '2048')) games.push({ file: 'index.html', name: '2048' });
+
 console.log('');
-console.log(`${files.length}개 검사 · 걸린 파일 ${bad}개`);
-process.exit(bad ? 1 : 0);
+console.log(`게임 ${games.length}개 — 목록 반영 여부`);
+let stale = 0;
+for (const p of listPages) {
+  const fp = path.join(ROOT, p);
+  if (!fs.existsSync(fp)) continue;
+  const src = fs.readFileSync(fp, 'utf8');
+  const miss = games.filter((g) => !src.includes(g.name));
+  if (miss.length) { stale++; console.log(`★ ${p.padEnd(24)} 빠진 게임 ${miss.length}개 — ${miss.map((g) => g.name).join(' · ')}`); }
+  else console.log(`  ${p.padEnd(24)} ${games.length}개 전부 반영`);
+}
+
+// 제목에 개수를 박으면 게임을 추가할 때마다 낡는다.
+for (const p of listPages) {
+  const src = fs.existsSync(path.join(ROOT, p)) ? fs.readFileSync(path.join(ROOT, p), 'utf8') : '';
+  const m = src.match(/<title>([^<]*)<\/title>/);
+  if (m && /\d+\s*(선|가지|개)/.test(m[1])) { stale++; console.log(`★ ${p} 제목에 개수가 박혀 있습니다 — "${m[1].trim()}"`); }
+}
+
+console.log('');
+console.log(`${files.length}개 검사 · 냄새 ${bad}개 · 목록 낡음 ${stale}개`);
+process.exit(bad || stale ? 1 : 0);

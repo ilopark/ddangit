@@ -31,7 +31,8 @@
     {id:"snake",  file:"snake.html",       tab:"영업",   name:"스네이크"},
     {id:"tetris", file:"tetris.html",      tab:"생산",   name:"테트리스"},
     {id:"nono",   file:"nonogram.html",    tab:"원가",   name:"네모로직"},
-    {id:"stock",  file:"stock.html",       tab:"투자",   name:"모의주식"}
+    {id:"stock",  file:"stock.html",       tab:"투자",   name:"모의주식"},
+    {id:"soko",   file:"sokoban.html",     tab:"물류",   name:"소코반"}
   ];
 
   const $ = (s,r)=> (r||document).querySelector(s);

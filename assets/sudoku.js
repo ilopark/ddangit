@@ -81,16 +81,34 @@
     for(const v of shuffled()){if(ok(bd,p,v)){bd[p]=v;if(fill(bd,p+1))return true;bd[p]=0;}}
     return false;
   }
+  // 해답 개수 세기 (limit까지만) — 유일성 판정용
+  function countSolutions(bd, limit){
+    const b=bd.slice(); let count=0;
+    (function solve(p){
+      if(count>=limit)return;
+      while(p<81 && b[p])p++;
+      if(p===81){count++;return;}
+      for(let v=1;v<=9;v++){ if(ok(b,p,v)){ b[p]=v; solve(p+1); b[p]=0; if(count>=limit)return; } }
+    })(0);
+    return count;
+  }
   function gen(nHoles){
     solution=new Array(81).fill(0); fill(solution,0);
     puzzle=solution.slice(); given=new Array(81).fill(true);
     notes=Array.from({length:81},()=>new Set());
     const order=[...Array(81).keys()];for(let i=80;i>0;i--){const j=(Math.random()*(i+1))|0;[order[i],order[j]]=[order[j],order[i]];}
+    // 유일 해답이 유지될 때만 칸을 제거 → 정답이 하나뿐인 퍼즐 보장
     let removed=0;
-    for(const p of order){ if(removed>=nHoles)break; puzzle[p]=0; given[p]=false; removed++; }
+    for(const p of order){
+      if(removed>=nHoles)break;
+      const saved=puzzle[p];
+      puzzle[p]=0;
+      if(countSolutions(puzzle,2)!==1){ puzzle[p]=saved; }  // 유일하지 않으면 되돌림
+      else { given[p]=false; removed++; }
+    }
     sel=-1;
     render();
-    window.DDANJIT.setStatus('입력 대기', nHoles);
+    window.DDANJIT.setStatus('입력 대기', removed);
   }
   function render(){
     let blanks=0;
@@ -108,7 +126,7 @@
         c.appendChild(nd);
       } else c.textContent='';
       c.style.fontWeight=given[i]?'700':'500';
-      c.style.color=given[i]?'var(--cell-fg)':'var(--accent)';
+      c.style.color=given[i]?'var(--cell-fg)':'var(--focus)';
       // 하이라이트 우선순위: 선택 > 같은 숫자 > 피어(행·열·블록)
       let bg='var(--cell-bg)';
       if(peerSet.has(i)) bg='var(--peer-bg)';

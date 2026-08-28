@@ -1,0 +1,262 @@
+/* ============================================================
+   딴짓 스프레드시트 — 공유 스타일
+   엑셀 위장 크롬 + 게임 보드 + 사장님 오버레이
+   ============================================================ */
+
+:root{
+  /* Excel 라이트 팔레트 */
+  --xl-green:#217346;
+  --xl-green-dk:#1a5c38;
+  --ribbon:#f3f2f1;
+  --ribbon-line:#e1dfdd;
+  --toolbar-hover:#ffffff;
+  --grid-line:#d4d4d4;
+  --head-bg:#f5f5f5;
+  --head-fg:#6b6b6b;
+  --cell-bg:#ffffff;
+  --cell-fg:#3b3b3b;
+  --lbl-bg:#fafafa;
+  --lbl-fg:#3b3b3b;
+  --ambient-fg:#9a9a9a;
+  --sel:#217346;
+  --sel-fill:rgba(33,115,70,.10);
+  --page-bg:#e6e6e6;
+  --panel:#ffffff;
+  --muted:#8a8a8a;
+  --accent:#217346;
+  --accent-fg:#ffffff;
+  --focus:#1a73e8;
+  --ad-bg:#f7f7f5;
+  --ad-line:#dcdcda;
+  --ad-fg:#b7b7b3;
+  --unrevealed:#e4e4e1;
+  --peer-bg:#eef3fb;
+  --samenum-bg:#d3e2fb;
+  --shadow:0 1px 3px rgba(0,0,0,.10),0 6px 22px rgba(0,0,0,.10);
+
+  /* 2048 타일 — 죽인 오피스 톤 */
+  --t2:#efe9de;--t2f:#726a5a; --t4:#ece0c8;--t4f:#726a5a;
+  --t8:#e6a86b;--t8f:#fff; --t16:#df8b52;--t16f:#fff;
+  --t32:#dc6f4e;--t32f:#fff; --t64:#d85332;--t64f:#fff;
+  --t128:#e6c65b;--t128f:#fff; --t256:#e6c14a;--t256f:#fff;
+  --t512:#e6bd39;--t512f:#fff; --t1024:#e6b91f;--t1024f:#fff;
+  --t2048:#e6b400;--t2048f:#fff;
+
+  /* 게임 시맨틱 */
+  --good:#2e9e5b; --good-bg:rgba(46,158,91,.14);
+  --warn:#e0a400; --warn-bg:rgba(224,164,0,.16);
+  --bad:#d24d3f; --bad-bg:rgba(210,77,63,.12);
+  --mine:#d24d3f;
+
+  --font-ui:"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+  --font-num:"Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --xl-green:#185a35; --xl-green-dk:#124327;
+    --ribbon:#2b2b2b; --ribbon-line:#3a3a3a; --toolbar-hover:#3a3a3a;
+    --grid-line:#3a3a3a; --head-bg:#262626; --head-fg:#9a9a9a;
+    --cell-bg:#1e1e1e; --cell-fg:#e3e3e3; --lbl-bg:#242424; --lbl-fg:#dcdcdc;
+    --ambient-fg:#6a6a6a; --sel:#33a06a; --sel-fill:rgba(51,160,106,.16);
+    --page-bg:#141414; --panel:#1e1e1e; --muted:#8a8a8a;
+    --accent:#33a06a; --focus:#5b9dff;
+    --ad-bg:#242424; --ad-line:#383838; --ad-fg:#5a5a5a;
+    --shadow:0 1px 3px rgba(0,0,0,.5),0 6px 22px rgba(0,0,0,.5);
+    --t2:#3a3730;--t2f:#c9c1b0; --t4:#46402f;--t4f:#d8cdb4;
+    --unrevealed:#333941;
+    --peer-bg:#26303d;
+    --samenum-bg:#2f4a63;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --xl-green:#185a35; --xl-green-dk:#124327;
+  --ribbon:#2b2b2b; --ribbon-line:#3a3a3a; --toolbar-hover:#3a3a3a;
+  --grid-line:#3a3a3a; --head-bg:#262626; --head-fg:#9a9a9a;
+  --cell-bg:#1e1e1e; --cell-fg:#e3e3e3; --lbl-bg:#242424; --lbl-fg:#dcdcdc;
+  --ambient-fg:#6a6a6a; --sel:#33a06a; --sel-fill:rgba(51,160,106,.16);
+  --page-bg:#141414; --panel:#1e1e1e; --muted:#8a8a8a;
+  --accent:#33a06a; --focus:#5b9dff;
+  --ad-bg:#242424; --ad-line:#383838; --ad-fg:#5a5a5a;
+  --shadow:0 1px 3px rgba(0,0,0,.5),0 6px 22px rgba(0,0,0,.5);
+  --t2:#3a3730;--t2f:#c9c1b0; --t4:#46402f;--t4f:#d8cdb4;
+  --unrevealed:#333941;
+  --peer-bg:#26303d;
+  --samenum-bg:#2f4a63;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--page-bg);
+  color:var(--cell-fg);
+  font-family:var(--font-ui);
+  font-size:13px;
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+
+/* ===== 타이틀바 ===== */
+.titlebar{background:var(--xl-green);color:#fff;display:flex;align-items:center;gap:8px;
+  padding:5px 10px;font-size:12px;flex-shrink:0}
+.titlebar .doticon{width:16px;height:16px;background:#fff;border-radius:2px;display:grid;
+  place-items:center;color:var(--xl-green);font-weight:800;font-size:11px;flex-shrink:0}
+.titlebar .fname{opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.titlebar .spacer{margin-left:auto}
+.theme-btn{background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:4px;
+  padding:3px 9px;font-size:12px;cursor:pointer;font-family:inherit}
+.theme-btn:hover{background:rgba(255,255,255,.28)}
+.titlebar .winbtns{display:flex;gap:14px;opacity:.9;letter-spacing:2px;margin-left:12px}
+
+/* ===== 리본 메뉴 ===== */
+.menubar{background:var(--xl-green-dk);color:#fff;display:flex;gap:2px;padding:0 6px;
+  font-size:12.5px;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.menubar::-webkit-scrollbar{display:none}
+.menubar span{padding:6px 11px;white-space:nowrap;border-radius:3px 3px 0 0}
+.menubar span.active{background:var(--ribbon);color:var(--cell-fg)}
+.toolbar{background:var(--ribbon);border-bottom:1px solid var(--ribbon-line);display:flex;
+  align-items:center;gap:3px;padding:5px 8px;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.toolbar::-webkit-scrollbar{display:none}
+.tbtn{min-width:26px;height:26px;padding:0 6px;border:1px solid transparent;border-radius:3px;
+  background:transparent;color:var(--cell-fg);font-size:13px;cursor:default;display:grid;place-items:center}
+.tbtn.b{font-weight:800}.tbtn.i{font-style:italic}.tbtn.u{text-decoration:underline}
+.tsep{width:1px;height:20px;background:var(--ribbon-line);margin:0 4px;flex-shrink:0}
+
+/* ===== 수식 입력줄 ===== */
+.formulabar{display:flex;align-items:stretch;background:var(--cell-bg);
+  border-bottom:1px solid var(--ribbon-line);flex-shrink:0}
+.namebox{width:82px;padding:5px 8px;border-right:1px solid var(--ribbon-line);font-size:12.5px;
+  display:flex;align-items:center;color:var(--cell-fg);flex-shrink:0}
+.fx{padding:5px 8px;color:var(--muted);border-right:1px solid var(--ribbon-line);
+  font-style:italic;display:flex;align-items:center;flex-shrink:0}
+.finput{flex:1;padding:5px 10px;color:var(--cell-fg);font-size:12.5px;display:flex;
+  align-items:center;min-width:0;white-space:nowrap;overflow:hidden}
+
+/* ===== 본문: 게임 무대 + 광고 ===== */
+.stage{flex:1;display:flex;min-height:0;background:var(--cell-bg)}
+.worksheet{flex:1;min-width:0;position:relative;overflow:auto;
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 -1px / 100% 24px,
+    linear-gradient(90deg,var(--grid-line) 1px, transparent 1px) -1px 0 / 92px 100%;
+}
+.sheet-scroll{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:34px 20px 60px}
+.gamewrap{width:100%;max-width:520px;display:flex;flex-direction:column;gap:14px}
+.game-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.game-head h1{font-size:16px;font-weight:700;letter-spacing:-.2px;text-wrap:balance}
+.game-head .sub{color:var(--muted);font-size:12px}
+.scorebox{margin-left:auto;display:flex;gap:8px}
+.stat{background:var(--head-bg);border:1px solid var(--grid-line);border-radius:6px;
+  padding:5px 12px;text-align:center;min-width:70px}
+.stat .k{font-size:10px;color:var(--head-fg);text-transform:uppercase;letter-spacing:.6px}
+.stat .v{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.btn{background:var(--accent);color:var(--accent-fg);border:none;border-radius:6px;
+  padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;
+  touch-action:manipulation}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+
+/* 스프레드시트 셀 느낌 게임 보드 공통 */
+.board{display:grid;gap:1px;background:var(--grid-line);border:1px solid var(--grid-line);
+  width:max-content;max-width:100%;user-select:none;box-shadow:var(--shadow)}
+.cell{background:var(--cell-bg);color:var(--cell-fg);display:grid;place-items:center;
+  font-variant-numeric:tabular-nums;position:relative;touch-action:manipulation}
+button.cell{border:none;font-family:inherit;padding:0;margin:0;cursor:pointer;line-height:1}
+@keyframes pop{0%{transform:scale(.4)}60%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes merge{0%{transform:scale(1)}45%{transform:scale(1.24)}100%{transform:scale(1)}}
+.cell.anim-pop{animation:pop .16s ease}
+.cell.anim-merge{animation:merge .18s ease;z-index:1}
+/* 스도쿠 후보 노트 */
+.cand{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);
+  width:100%;height:100%;font-size:10px;color:var(--muted);line-height:1}
+.cand span{display:grid;place-items:center;font-weight:500}
+
+/* 광고 슬롯 */
+.ad{background:var(--ad-bg);border:1px dashed var(--ad-line);color:var(--ad-fg);
+  display:grid;place-items:center;text-align:center;font-size:11px;letter-spacing:.4px;border-radius:4px}
+.ad .lab{opacity:.8}
+.ad-rail{width:200px;flex-shrink:0;border-left:1px solid var(--ribbon-line);
+  padding:16px 12px;display:flex;flex-direction:column;gap:16px;background:var(--panel);overflow:auto}
+.ad-rail .ad{min-height:250px}
+.ad-rail .ad.tall{flex:1;min-height:320px}
+.ad-strip{width:100%;min-height:90px;margin-top:4px}
+
+/* ===== 시트 탭 + 상태바 ===== */
+.statusbar{background:var(--xl-green);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:0 12px;font-size:12px;flex-shrink:0;height:34px}
+.sheettabs{display:flex;gap:1px;align-items:stretch;height:100%;overflow-x:auto;scrollbar-width:none}
+.sheettabs::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;padding:0 14px;background:rgba(255,255,255,.14);color:#fff;
+  text-decoration:none;font-size:12px;white-space:nowrap;border-right:1px solid rgba(0,0,0,.08)}
+.tab:hover{background:rgba(255,255,255,.24)}
+.tab.active{background:var(--cell-bg);color:var(--xl-green);font-weight:700}
+:root[data-theme="dark"] .tab.active,
+:root:not([data-theme="light"]) .tab.active{color:var(--cell-fg)}
+.status-right{margin-left:auto;display:flex;gap:16px;align-items:center;white-space:nowrap}
+.status-right .hint kbd{background:#fff;color:#222;border-radius:3px;padding:0 5px;font-size:10.5px;
+  border:1px solid #bbb;font-family:inherit}
+
+/* ===== 사장님 오버레이 ===== */
+.boss{position:fixed;inset:0;z-index:100;background:var(--cell-bg);display:none;
+  flex-direction:column;opacity:0;transition:opacity .12s ease}
+.boss.show{display:flex;opacity:1}
+.boss table{border-collapse:collapse;table-layout:fixed;width:100%}
+.boss th,.boss td{border:1px solid var(--grid-line);height:23px;padding:0 6px;font-size:12px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.boss th{background:var(--head-bg);color:var(--head-fg);font-weight:500;text-align:center}
+.boss td.rowh{background:var(--head-bg);color:var(--head-fg);text-align:center;width:36px}
+.boss td.lbl{font-weight:600;background:var(--lbl-bg)}
+.boss td.rt{text-align:right}
+.boss td.sel{outline:2px solid var(--sel);outline-offset:-2px;background:var(--sel-fill)}
+.boss .bwrap{flex:1;overflow:auto;padding:0;overscroll-behavior:contain}
+
+/* 토스트 */
+.toast{position:fixed;left:50%;bottom:48px;transform:translateX(-50%);background:rgba(20,20,20,.92);
+  color:#fff;padding:9px 16px;border-radius:6px;font-size:12.5px;z-index:120;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none;transition:opacity .4s;white-space:nowrap}
+.toast b{color:#7fd6a2}
+.toast.hide{opacity:0}
+.toast kbd{background:#fff;color:#222;border-radius:3px;padding:1px 6px;font-size:11px;border:1px solid #bbb}
+
+/* 게임오버/승리 배너 */
+.banner{position:absolute;inset:0;display:none;place-items:center;z-index:8;
+  background:color-mix(in srgb,var(--cell-bg) 82%, transparent)}
+.banner.show{display:grid}
+.banner .box{background:var(--panel);border:1px solid var(--grid-line);border-radius:8px;
+  padding:20px 26px;text-align:center;box-shadow:var(--shadow);max-width:300px}
+.banner h3{font-size:17px;margin-bottom:6px;text-wrap:balance}
+.banner p{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+
+/* SEO 콘텐츠 (게임 아래 정적 텍스트 — 크롤링/체류시간용) */
+.seo-content{margin-top:26px;padding-top:22px;border-top:1px solid var(--grid-line);
+  max-width:640px;color:var(--cell-fg);line-height:1.75}
+.seo-content h2{font-size:15px;margin:18px 0 8px;font-weight:700}
+.seo-content h2:first-child{margin-top:0}
+.seo-content p{font-size:13px;color:var(--muted);margin-bottom:10px}
+.seo-content ul{margin:0 0 10px 18px;font-size:13px;color:var(--muted)}
+.seo-content li{margin-bottom:4px}
+.seo-content .kw{color:var(--accent);font-weight:600}
+
+/* 접근성: 모션 감소 */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ===== 반응형 ===== */
+@media (max-width:900px){
+  .ad-rail{display:none}
+}
+@media (max-width:560px){
+  .menubar span:nth-child(n+6){display:none}
+  .titlebar .winbtns{display:none}
+  .namebox{width:60px}
+  .fx{display:none}
+  .sheet-scroll{padding:20px 12px 50px}
+  .status-right .hint{display:none}
+  .game-head h1{font-size:15px}
+}

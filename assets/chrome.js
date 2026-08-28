@@ -124,7 +124,7 @@
     right.innerHTML =
       '<span id="st-mode">준비 완료</span>'+
       '<span class="num">합계: <span id="st-sum">0</span></span>'+
-      '<span class="hint">사장님 오면 <kbd>ESC</kbd></span>';
+      '<span class="hint">빠른 숨김 <kbd>ESC</kbd></span>';
 
     bar.appendChild(tabs); bar.appendChild(right);
     document.body.appendChild(bar);
@@ -207,7 +207,7 @@
       try{ window.DDANJIT._game.init(); }catch(err){ console.error('game init 실패:',err); }
     }
     const g=GAMES.find(x=>x.id===currentId)||GAMES[0];
-    setTimeout(()=>toast('방향키/마우스로 '+g.name+' 플레이 · 사장님 오면 <kbd>ESC</kbd> · 탭으로 게임 전환'), 700);
+    setTimeout(()=>toast('방향키/마우스로 '+g.name+' 플레이 · 누가 오면 <kbd>ESC</kbd>로 숨기기 · 탭으로 게임 전환'), 700);
   });
 
   // 게임 등록 인터페이스

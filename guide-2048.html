@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2048 고득점 공략 — 모서리 전략과 순서 잡는 법 | 딴짓 스프레드시트</title>
+<meta name="description" content="2048에서 높은 점수를 내는 핵심 전략. 큰 타일을 한 모서리에 고정하는 법, 한 방향 위주로 미는 요령, 흔한 실수까지 초보도 따라 할 수 있게 정리했습니다.">
+<meta name="keywords" content="2048 공략, 2048 전략, 2048 고득점, 2048 게임 잘하는 법, 2048 팁">
+<link rel="canonical" href="https://ilopark.github.io/ddangit/guide-2048.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2048 고득점 공략 — 모서리 전략과 순서 잡는 법">
+<meta property="og:description" content="큰 타일을 모서리에 고정하는 2048 핵심 전략과 흔한 실수.">
+<meta property="og:url" content="https://ilopark.github.io/ddangit/guide-2048.html">
+<meta name="theme-color" content="#217346">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('ddanjit-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"2048 고득점 공략 — 모서리 전략과 순서 잡는 법","inLanguage":"ko","author":{"@type":"Organization","name":"딴짓 스프레드시트"},"publisher":{"@type":"Organization","name":"딴짓 스프레드시트"},"datePublished":"2026-08-29"}
+</script>
+</head>
+<body class="page">
+<header class="page-top">
+  <a class="brand" href="index.html"><span class="doticon">X</span> 딴짓 스프레드시트</a>
+  <a class="backlink" href="index.html">← 게임하러 가기</a>
+</header>
+<main class="page-main">
+  <article class="doc">
+    <h1>2048 고득점 공략 — 모서리 전략과 순서 잡는 법</h1>
+    <p class="updated">초보도 2048 타일까지 가는 기본 전략</p>
+
+    <p class="lead"><a href="index.html">2048</a>은 운 같아 보이지만 사실 <strong>전략 게임</strong>입니다. 몇 가지 원칙만 지키면 점수가 눈에 띄게 올라가고, 2048 타일도 어렵지 않게 만들 수 있습니다. 핵심은 딱 하나, <strong>“큰 숫자를 한 모서리에 몰아두는 것”</strong>입니다.</p>
+
+    <h2>원칙 1. 큰 타일은 한 모서리에 고정한다</h2>
+    <p>가장 중요한 원칙입니다. 가장 큰 타일을 예를 들어 <strong>왼쪽 아래 모서리</strong>에 두기로 정했다면, 게임이 끝날 때까지 그 자리를 지킵니다. 큰 타일이 판 한가운데를 돌아다니면 주변에 같은 숫자를 붙이기 어려워져 금방 막힙니다. 한 모서리에 기준점을 두면 그 옆으로 숫자를 차곡차곡 쌓을 수 있습니다.</p>
+
+    <h2>원칙 2. 주 방향 하나 + 보조 방향 하나만 쓴다</h2>
+    <p>모서리를 왼쪽 아래로 정했다면, <strong>아래로 미는 것을 기본</strong>으로 하고 <strong>왼쪽</strong>을 보조로 씁니다. 이 두 방향만 번갈아 쓰면 큰 타일이 아래줄에 안정적으로 정렬됩니다.</p>
+
+    <h2>원칙 3. ‘위로 올리기’는 최후의 수단</h2>
+    <p>왼쪽·아래 전략이라면 <strong>위로 미는 순간 모서리에 고정해 둔 큰 타일이 위로 딸려 올라가</strong> 배치가 무너집니다. 위·오른쪽(반대 방향)은 정말 다른 수가 하나도 없을 때만 쓰세요. 무심코 반대 방향을 누르는 것이 초보의 가장 큰 실수입니다.</p>
+
+    <h2>원칙 4. 아래줄을 큰 수 순서로 정렬한다 (뱀 패턴)</h2>
+    <p>가장 아래줄을 왼쪽부터 <strong>큰 수 → 작은 수 순서</strong>로 정렬하면, 옆 칸끼리 자연스럽게 합쳐지며 연쇄가 일어납니다. 한 줄이 꽉 차면 그 위 줄을 반대 방향으로 채우는 ‘뱀(snake)’ 모양으로 쌓는 것이 고수들의 정석입니다.</p>
+
+    <h2>원칙 5. 빈칸이 줄면 속도를 늦춘다</h2>
+    <p>빈칸이 많을 때는 편하게 밀어도 되지만, 빈칸이 2~3개로 줄면 <strong>한 수 한 수 신중하게</strong> 둬야 합니다. 이때 반대 방향을 한 번 잘못 누르면 그대로 게임이 끝나기도 합니다.</p>
+
+    <h2>자주 하는 실수</h2>
+    <ul>
+      <li><strong>아무 방향이나 빠르게 누르기</strong> — 큰 타일이 흩어져 금방 막힙니다.</li>
+      <li><strong>모서리 기준을 자꾸 바꾸기</strong> — 한 판에서는 한 모서리를 끝까지 지키세요.</li>
+      <li><strong>작은 수를 방치</strong> — 작은 수는 큰 수 반대쪽에서 미리미리 합쳐 정리합니다.</li>
+    </ul>
+
+    <h2>정리</h2>
+    <p>2048의 핵심은 <strong>“큰 수를 한 모서리에 고정하고, 두 방향만으로 정렬”</strong>입니다. 이 습관만 들이면 점수가 확 오릅니다. 바로 <a href="index.html">2048 플레이</a>로 연습해 보세요. 다른 게임 팁은 <a href="guide-minesweeper.html">지뢰찾기 가이드</a>도 참고하세요.</p>
+  </article>
+</main>
+<footer class="page-foot">
+  <a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>
+  <div style="margin-top:8px">© 딴짓 스프레드시트</div>
+</footer>
+</body>
+</html>

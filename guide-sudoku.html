@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스도쿠 푸는 기초 요령 — 스캔과 후보 좁히기 | 딴짓 스프레드시트</title>
+<meta name="description" content="스도쿠를 처음 푸는 사람을 위한 기본 풀이법. 단독 후보와 숨은 단독을 찾는 스캔 방법, 노트(펜슬) 활용, 어디부터 손대야 하는지까지 쉽게 정리했습니다.">
+<meta name="keywords" content="스도쿠 푸는법, 스도쿠 공략, 스도쿠 하는법, 스도쿠 초보, 스도쿠 요령">
+<link rel="canonical" href="https://ilopark.github.io/ddangit/guide-sudoku.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스도쿠 푸는 기초 요령 — 스캔과 후보 좁히기">
+<meta property="og:description" content="단독 후보·숨은 단독을 찾는 스도쿠 기본 풀이법.">
+<meta property="og:url" content="https://ilopark.github.io/ddangit/guide-sudoku.html">
+<meta name="theme-color" content="#217346">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('ddanjit-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"스도쿠 푸는 기초 요령 — 스캔과 후보 좁히기","inLanguage":"ko","author":{"@type":"Organization","name":"딴짓 스프레드시트"},"publisher":{"@type":"Organization","name":"딴짓 스프레드시트"},"datePublished":"2026-08-29"}
+</script>
+</head>
+<body class="page">
+<header class="page-top">
+  <a class="brand" href="index.html"><span class="doticon">X</span> 딴짓 스프레드시트</a>
+  <a class="backlink" href="sudoku.html">← 스도쿠 하러 가기</a>
+</header>
+<main class="page-main">
+  <article class="doc">
+    <h1>스도쿠 푸는 기초 요령 — 스캔과 후보 좁히기</h1>
+    <p class="updated">처음 푸는 사람을 위한 스도쿠 기본기</p>
+
+    <p class="lead"><a href="sudoku.html">스도쿠</a>의 규칙은 하나입니다. <strong>가로 한 줄, 세로 한 줄, 3×3 박스 안에 1부터 9까지 겹치지 않게</strong> 채우면 됩니다. 규칙이 단순한 만큼, 몇 가지 기본 기법만 익히면 대부분의 쉬운·보통 퍼즐은 막힘없이 풀립니다.</p>
+
+    <h2>기법 1. 단독 후보 (한 칸에 답이 하나뿐)</h2>
+    <p>어떤 빈 칸을 봤을 때, 같은 줄·열·박스에 이미 1~9 중 8개가 들어 있다면 <strong>남는 숫자는 하나</strong>뿐입니다. 그 칸은 바로 확정입니다. 이렇게 “들어갈 수 있는 숫자가 딱 하나”인 칸을 먼저 찾아 채우는 것이 시작점입니다.</p>
+
+    <h2>기법 2. 숨은 단독 (그 줄에서 여기밖에 못 들어감)</h2>
+    <p>반대로 접근할 수도 있습니다. 어떤 <strong>가로줄에서 숫자 ‘5’가 들어갈 수 있는 칸이 딱 하나</strong>라면, 그 칸엔 다른 후보가 있더라도 결국 5가 들어갑니다. 줄·열·박스 단위로 “이 숫자가 갈 수 있는 자리”를 세어 보는 방법입니다. 초보 때 가장 강력한 무기입니다.</p>
+
+    <h2>기법 3. 스캐닝 — 한 숫자씩 훑기</h2>
+    <p>1부터 9까지 <strong>한 숫자를 정해 판 전체를 훑는</strong> 방법입니다. 예를 들어 ‘3’을 정했다면, 이미 놓인 3들이 만드는 가로·세로 선을 따라가며 각 3×3 박스에서 3이 들어갈 자리를 좁힙니다. 이 스캔만 반복해도 쉬운 퍼즐은 상당 부분 풀립니다.</p>
+
+    <h2>기법 4. 노트(펜슬)로 후보 적어 두기</h2>
+    <p>확정이 안 되는 칸에는 <strong>가능한 후보 숫자들을 작게 메모</strong>해 두세요. 딴짓 스프레드시트 스도쿠에는 <strong>노트 모드</strong>가 있어, 켜고 숫자를 누르면 후보가 작게 표시됩니다. 후보를 적어 두면 “이 줄에서 2가 들어갈 곳이 두 군데뿐”처럼 다음 수가 보입니다. 또 칸을 선택하면 같은 행·열·블록이 강조되어 중복을 눈으로 확인하기 쉽습니다.</p>
+
+    <h2>어디부터 손대야 할까</h2>
+    <ul>
+      <li><strong>이미 숫자가 많이 채워진 줄·열·박스</strong>부터 보세요. 확정 짓기 쉽습니다.</li>
+      <li>가장 흔하게 등장하는 숫자를 스캔 대상으로 잡으면 진도가 빠릅니다.</li>
+      <li>막히면 노트를 켜서 후보를 정리하면 길이 열립니다.</li>
+    </ul>
+
+    <h2>정리</h2>
+    <p>스도쿠는 <strong>“단독 후보 → 숨은 단독 → 스캐닝”</strong> 순서로 접근하면 대부분 풀립니다. 막힐 땐 노트 기능을 적극 쓰세요. <a href="sudoku.html">스도쿠 쉬움 난이도</a>부터 연습하면 감이 빨리 잡힙니다. <a href="guide-wordle.html">한글 워들 팁</a>도 함께 보면 좋아요.</p>
+  </article>
+</main>
+<footer class="page-foot">
+  <a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>
+  <div style="margin-top:8px">© 딴짓 스프레드시트</div>
+</footer>
+</body>
+</html>

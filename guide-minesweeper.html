@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지뢰찾기 초보 탈출 — 숫자로 지뢰 추론하는 법 | 딴짓 스프레드시트</title>
+<meta name="description" content="지뢰찾기에서 숫자를 단서로 지뢰를 논리적으로 찾는 법. 1의 활용, 만족된 숫자 주변 열기, 1-2-1 패턴 등 초보가 바로 쓰는 기본 테크닉을 정리했습니다.">
+<meta name="keywords" content="지뢰찾기 공략, 지뢰찾기 하는법, 지뢰찾기 팁, 지뢰찾기 전략, minesweeper 공략">
+<link rel="canonical" href="https://ilopark.github.io/ddangit/guide-minesweeper.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="지뢰찾기 초보 탈출 — 숫자로 지뢰 추론하는 법">
+<meta property="og:description" content="숫자를 단서로 지뢰를 논리적으로 찾는 기본 테크닉.">
+<meta property="og:url" content="https://ilopark.github.io/ddangit/guide-minesweeper.html">
+<meta name="theme-color" content="#217346">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('ddanjit-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"지뢰찾기 초보 탈출 — 숫자로 지뢰 추론하는 법","inLanguage":"ko","author":{"@type":"Organization","name":"딴짓 스프레드시트"},"publisher":{"@type":"Organization","name":"딴짓 스프레드시트"},"datePublished":"2026-08-29"}
+</script>
+</head>
+<body class="page">
+<header class="page-top">
+  <a class="brand" href="index.html"><span class="doticon">X</span> 딴짓 스프레드시트</a>
+  <a class="backlink" href="minesweeper.html">← 지뢰찾기 하러 가기</a>
+</header>
+<main class="page-main">
+  <article class="doc">
+    <h1>지뢰찾기 초보 탈출 — 숫자로 지뢰 추론하는 법</h1>
+    <p class="updated">운이 아니라 논리로 푸는 지뢰찾기</p>
+
+    <p class="lead"><a href="minesweeper.html">지뢰찾기</a>는 찍는 게임이 아니라 <strong>논리 퍼즐</strong>입니다. 열린 칸의 숫자는 <strong>그 칸에 인접한 8칸 안에 있는 지뢰의 개수</strong>를 뜻합니다. 이 숫자들만 잘 읽으면 지뢰 위치를 확정하고, 안전한 칸을 자신 있게 열 수 있습니다.</p>
+
+    <h2>기본: 숫자의 의미</h2>
+    <p>어떤 칸에 <strong>1</strong>이 적혀 있으면, 그 칸에 붙은 8칸 중 <strong>정확히 하나</strong>가 지뢰라는 뜻입니다. <strong>2</strong>면 두 개, <strong>3</strong>이면 세 개입니다. 이 단순한 규칙에서 모든 추론이 시작됩니다.</p>
+
+    <h2>테크닉 1. 미개봉 칸이 딱 숫자만큼이면 전부 지뢰</h2>
+    <p>‘1’ 주변에 아직 안 열린 칸이 <strong>하나뿐</strong>이라면, 그 칸이 바로 지뢰입니다. 깃발을 꽂으세요. ‘2’ 주변에 미개봉 칸이 정확히 두 개라면 둘 다 지뢰입니다. 즉 <strong>숫자 = 남은 미개봉 칸 수</strong>이면 그 칸들은 모두 지뢰로 확정됩니다.</p>
+
+    <h2>테크닉 2. 숫자가 ‘만족’되면 나머지는 안전</h2>
+    <p>‘1’ 주변에서 이미 지뢰 한 개를 찾아 깃발을 꽂았다면, 그 ‘1’은 임무 완료입니다. 따라서 그 ‘1’에 붙은 <strong>나머지 미개봉 칸은 모두 안전</strong>합니다. 마음 놓고 여세요. 이렇게 “깃발 수 = 숫자”가 된 칸 주변을 여는 것이 진도를 빼는 핵심입니다.</p>
+
+    <h2>테크닉 3. 두 숫자를 겹쳐서 본다 (1-2-1 패턴)</h2>
+    <p>가장자리에 <strong>1-2-1</strong>이 나란히 있으면, 지뢰는 보통 양쪽 1 아래에 하나씩 있고 가운데는 안전한 경우가 많습니다. <strong>1-1</strong>이 벽을 따라 이어질 때도, 두 숫자가 공유하는 칸을 비교하면 안전한 칸이 드러납니다. 인접한 숫자끼리 “공통으로 보는 칸”을 비교하는 습관을 들이세요.</p>
+
+    <h2>테크닉 4. 가장자리·모서리부터 공략</h2>
+    <p>모서리와 벽은 인접 칸이 적어 경우의 수가 작습니다. 그래서 <strong>확정 짓기가 쉬운 가장자리부터</strong> 푸는 것이 효율적입니다. 한가운데 애매한 칸은 주변 정보가 더 모일 때까지 미뤄 두세요.</p>
+
+    <h2>정말 단서가 없을 때</h2>
+    <p>모든 논리를 써도 확정이 안 되는 순간이 옵니다. 이때는 어쩔 수 없이 확률로 판단하는데, <strong>이미 열린 숫자에서 먼 칸</strong>이 상대적으로 안전한 경우가 많습니다. 다만 이건 최후의 선택입니다.</p>
+
+    <h2>정리</h2>
+    <p>지뢰찾기는 <strong>“숫자 = 미개봉 칸 수 → 지뢰 확정”</strong>, <strong>“숫자 = 깃발 수 → 나머지 안전”</strong> 이 두 규칙이 8할입니다. <a href="minesweeper.html">지뢰찾기 초급</a>에서 이 두 가지만 연습해도 클리어 속도가 확 빨라집니다. 이어서 <a href="guide-sudoku.html">스도쿠 가이드</a>도 참고해 보세요.</p>
+  </article>
+</main>
+<footer class="page-foot">
+  <a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>
+  <div style="margin-top:8px">© 딴짓 스프레드시트</div>
+</footer>
+</body>
+</html>

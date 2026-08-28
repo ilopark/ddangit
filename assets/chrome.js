@@ -27,7 +27,11 @@
     {id:"cost",   file:"minesweeper.html", tab:"비용",   name:"지뢰찾기"},
     {id:"sudoku", file:"sudoku.html",      tab:"재고",   name:"스도쿠"},
     {id:"summary",file:"typing.html",      tab:"요약",   name:"타자연습"},
-    {id:"kpi",    file:"wordle.html",      tab:"KPI",    name:"워들"}
+    {id:"kpi",    file:"wordle.html",      tab:"KPI",    name:"워들"},
+    {id:"snake",  file:"snake.html",       tab:"영업",   name:"스네이크"},
+    {id:"tetris", file:"tetris.html",      tab:"생산",   name:"테트리스"},
+    {id:"nono",   file:"nonogram.html",    tab:"원가",   name:"네모로직"},
+    {id:"stock",  file:"stock.html",       tab:"투자",   name:"모의주식"}
   ];
 
   const $ = (s,r)=> (r||document).querySelector(s);

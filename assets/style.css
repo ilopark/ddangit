@@ -288,6 +288,17 @@ body.page{display:block;height:auto;min-height:100vh;overflow:auto;background:va
 .site-foot a{color:var(--muted);margin:0 5px;text-decoration:none}
 .site-foot a:hover{text-decoration:underline;color:var(--accent)}
 
+/* 네모네모로직 */
+.nono{display:grid;background:var(--grid-line);border:1px solid var(--grid-line);gap:1px;
+  width:max-content;max-width:100%;box-shadow:var(--shadow);user-select:none}
+.nono .corner{background:var(--head-bg)}
+.nono .cclue{background:var(--head-bg);display:flex;flex-direction:column;justify-content:flex-end;
+  align-items:center;font-size:11px;color:var(--head-fg);padding:2px 0;line-height:1.25;font-variant-numeric:tabular-nums}
+.nono .rclue{background:var(--head-bg);display:flex;justify-content:flex-end;align-items:center;gap:5px;
+  font-size:11px;color:var(--head-fg);padding:0 6px;line-height:1;font-variant-numeric:tabular-nums}
+.nono .ncell{background:var(--cell-bg);cursor:pointer;display:grid;place-items:center;font-size:13px;color:var(--muted)}
+.nono .ncell.fill{background:var(--accent)}
+
 /* 문의 게시판 컨테이너 */
 .board-box{margin-top:16px;border:1px solid var(--grid-line);border-radius:8px;padding:8px 14px;background:var(--cell-bg);min-height:120px}
 

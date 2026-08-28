@@ -256,6 +256,41 @@ button.cell{border:none;font-family:inherit;padding:0;margin:0;cursor:pointer;li
 .seo-content li{margin-bottom:4px}
 .seo-content .kw{color:var(--accent);font-weight:600}
 
+/* ===== 콘텐츠 페이지 (소개·개인정보·문의) ===== */
+body.page{display:block;height:auto;min-height:100vh;overflow:auto;background:var(--page-bg)}
+.page-top{background:var(--xl-green);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+.page-top .doticon{width:18px;height:18px;background:#fff;border-radius:2px;display:grid;place-items:center;color:var(--xl-green);font-weight:800;font-size:12px;flex-shrink:0}
+.page-top a.brand{color:#fff;text-decoration:none;font-weight:700;display:flex;align-items:center;gap:8px}
+.page-top .backlink{margin-left:auto;color:#fff;text-decoration:none;font-size:13px;opacity:.9}
+.page-top .backlink:hover{opacity:1;text-decoration:underline}
+.page-main{max-width:720px;margin:0 auto;padding:30px 20px 40px}
+.doc{background:var(--panel);border:1px solid var(--grid-line);border-radius:10px;padding:30px 34px;box-shadow:var(--shadow);line-height:1.8;color:var(--cell-fg)}
+.doc h1{font-size:24px;margin-bottom:6px;text-wrap:balance;letter-spacing:-.3px}
+.doc .updated{color:var(--muted);font-size:12.5px;margin-bottom:22px}
+.doc h2{font-size:17px;margin:26px 0 10px;font-weight:700}
+.doc h2:first-of-type{margin-top:8px}
+.doc p{margin-bottom:12px;font-size:14.5px}
+.doc ul{margin:0 0 12px 20px}
+.doc li{margin-bottom:6px;font-size:14.5px}
+.doc a{color:var(--accent)}
+.doc strong{font-weight:700}
+.doc .lead{font-size:15.5px;color:var(--cell-fg)}
+.doc table{border-collapse:collapse;width:100%;margin:8px 0 16px;font-size:13.5px}
+.doc th,.doc td{border:1px solid var(--grid-line);padding:8px 10px;text-align:left}
+.doc th{background:var(--head-bg);font-weight:600}
+.page-foot{text-align:center;padding:22px;color:var(--muted);font-size:12.5px}
+.page-foot a{color:var(--muted);margin:0 7px;text-decoration:none}
+.page-foot a:hover{text-decoration:underline;color:var(--accent)}
+
+/* 게임 페이지 하단 사이트 푸터 */
+.site-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--grid-line);
+  color:var(--muted);font-size:12px;text-align:center;line-height:1.9}
+.site-foot a{color:var(--muted);margin:0 5px;text-decoration:none}
+.site-foot a:hover{text-decoration:underline;color:var(--accent)}
+
+/* 문의 게시판 컨테이너 */
+.board-box{margin-top:16px;border:1px solid var(--grid-line);border-radius:8px;padding:8px 14px;background:var(--cell-bg);min-height:120px}
+
 /* 접근성: 모션 감소 */
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}

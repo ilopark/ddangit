@@ -206,6 +206,14 @@
     if(window.DDANJIT._game && typeof window.DDANJIT._game.init==='function'){
       try{ window.DDANJIT._game.init(); }catch(err){ console.error('game init 실패:',err); }
     }
+    // 사이트 푸터 (모든 게임 페이지 공통) — 소개/개인정보/문의 내부 링크
+    const gw=document.querySelector('.gamewrap');
+    if(gw){
+      const f=el('footer','site-foot');
+      f.innerHTML='<a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>'+
+        '<br>© 딴짓 스프레드시트 · 회사에서 심심할 때 하는 무료 웹게임';
+      gw.appendChild(f);
+    }
     const g=GAMES.find(x=>x.id===currentId)||GAMES[0];
     setTimeout(()=>toast('방향키/마우스로 '+g.name+' 플레이 · 누가 오면 <kbd>ESC</kbd>로 숨기기 · 탭으로 게임 전환'), 700);
   });

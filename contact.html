@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문의 게시판 | 딴짓 스프레드시트</title>
+<meta name="description" content="딴짓 스프레드시트 문의 게시판입니다. 게임 제안, 버그 제보, 이용 문의를 자유롭게 남겨 주세요.">
+<link rel="canonical" href="https://ilopark.github.io/ddangit/contact.html">
+<meta name="theme-color" content="#217346">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('ddanjit-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body class="page">
+<header class="page-top">
+  <a class="brand" href="index.html"><span class="doticon">X</span> 딴짓 스프레드시트</a>
+  <a class="backlink" href="index.html">← 게임하러 가기</a>
+</header>
+<main class="page-main">
+  <article class="doc">
+    <h1>문의 게시판</h1>
+    <p class="updated">게임 제안 · 버그 제보 · 이용 문의</p>
+
+    <p class="lead">사이트를 이용하면서 불편했던 점, 새로 넣었으면 하는 게임, 버그 제보 등 어떤 이야기든 아래 게시판에 남겨 주세요. 남겨 주신 의견은 하나씩 확인하고 반영하겠습니다.</p>
+    <ul>
+      <li>글을 남기려면 <strong>GitHub 계정 로그인</strong>이 필요합니다(스팸 방지를 위한 것으로, 별도 가입 없이 기존 GitHub 계정으로 가능합니다).</li>
+      <li>작성한 글은 다른 방문자에게도 공개됩니다. 개인정보나 민감한 정보는 적지 말아 주세요.</li>
+      <li>부적절하거나 광고성 글은 예고 없이 삭제될 수 있습니다.</li>
+    </ul>
+
+    <h2>게시판</h2>
+    <div class="board-box">
+      <!-- ================== 문의 게시판(giscus) 설정 안내 ==================
+        아래 giscus <script>는 data-repo-id / data-category-id 두 값을 넣어야 실제로 표시됩니다.
+        1) GitHub 저장소(ilopark/ddangit) → Settings → General → Features 에서 "Discussions" 체크
+        2) https://giscus.app/ko 접속 → 저장소에 "ilopark/ddangit" 입력
+        3) 화면에 나오는 data-repo-id 와, 카테고리 선택 후 data-category-id 값을 복사
+        4) 아래 REPO_ID_HERE / CATEGORY_ID_HERE 두 곳에 붙여넣기
+        5) (최초 1회) https://github.com/apps/giscus 에서 giscus 앱을 저장소에 설치
+        설정 전에는 아래 "게시판을 불러오는 중" 안내만 보입니다. -->
+      <p id="board-fallback" style="color:var(--muted);font-size:13px;padding:14px 4px">
+        게시판을 준비 중입니다. 잠시 후에도 보이지 않으면 새로고침해 주세요.
+      </p>
+      <script src="https://giscus.app/client.js"
+        data-repo="ilopark/ddangit"
+        data-repo-id="REPO_ID_HERE"
+        data-category="General"
+        data-category-id="CATEGORY_ID_HERE"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </div>
+
+    <p style="margin-top:18px;font-size:13px;color:var(--muted)">게시판이 불편하시면 <a href="about.html">소개 페이지</a>의 내용을 참고하시거나, 나중에 추가될 다른 문의 방법을 이용해 주세요.</p>
+  </article>
+</main>
+<footer class="page-foot">
+  <a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
+  <div style="margin-top:8px">© 딴짓 스프레드시트</div>
+</footer>
+</body>
+</html>

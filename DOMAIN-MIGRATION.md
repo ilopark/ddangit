@@ -97,6 +97,9 @@ git push -q origin main
   - 게시자 스크립트: 각 HTML `<head>`의 애드센스 주석 위치 (또는 `assets/chrome.js`)에서
     `ca-pub-XXXXXXXX`를 실제 게시자 ID로 교체.
   - `.ad` 플레이스홀더 슬롯(`class="ad ..."` `광고 · Advertisement`)을 실제 광고 유닛으로 교체.
+  - **`ads.txt` 추가**: 저장소 루트에 `ads.txt` 파일 생성, 내용 한 줄:
+    `google.com, pub-실제게시자ID, DIRECT, f08c47fec0942fa0`
+    → 커스텀 도메인 루트(`NEWDOMAIN/ads.txt`)에 서빙됨. (github.io 하위경로에선 호스트 루트가 아니라 불가하므로 도메인 후에만)
 
 ### STEP 9. 검증 — **Claude가**
 ```bash

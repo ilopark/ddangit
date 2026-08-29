@@ -6,6 +6,34 @@
 
 ---
 
+## ⚡ 빠른 시작 (새 세션·클로드 프로도 가능)
+
+> 이 대화 기억이 없는 세션도 이 문서만 보면 실행 가능. 클로드 프로 한도로 충분(가벼운 작업).
+> `NEWDOMAIN`은 새로 산 도메인(예: `ddanjit.com`).
+
+**Claude가 하는 일 (이 4줄이면 코드 쪽 끝):**
+```bash
+cd /c/dev/ddanjit
+# 1) 절대 URL 일괄 교체 (하위경로 /ddangit 는 자연히 사라짐)
+grep -rl "ilopark.github.io/ddangit" . | xargs sed -i 's|https://ilopark.github.io/ddangit|https://NEWDOMAIN|g'
+# 2) CNAME + ads.txt 생성 (ads.txt의 pub 아이디는 애드센스 발급값으로)
+printf 'NEWDOMAIN\n' > CNAME
+printf 'google.com, pub-실제게시자ID, DIRECT, f08c47fec0942fa0\n' > ads.txt
+# 3) 커밋 & 푸시
+git add -A && git -c user.email="frentree2@gmail.com" -c user.name="ilopark" commit -q -m "커스텀 도메인 이전" && git push -q origin main
+```
+그 뒤 확인: `grep -rl "ilopark.github.io" .` → **결과 0이어야 정상**.
+
+**사용자가 웹에서 하는 일 (Claude가 대신 못 함):**
+1. 도메인 등록업체에서 **DNS 설정** (A레코드 4개 → STEP 1 참고)
+2. GitHub 저장소 Settings → Pages → **Custom domain = NEWDOMAIN** 입력 → Enforce HTTPS
+3. **Search Console·네이버·애드센스**에 새 도메인 등록/신청 (STEP 5·7·8)
+4. **GA4 스트림 URL**을 새 도메인으로 수정 (측정 ID는 그대로)
+
+> 상세·주의사항은 아래 STEP 1~9에 전부 있음. 위는 요약일 뿐이니 처음이면 STEP도 훑어볼 것.
+
+---
+
 ## 0. 프로젝트 기준 정보 (현재 상태)
 
 | 항목 | 값 |

@@ -109,6 +109,39 @@
     "a journey of a thousand miles begins with one step.",
     "slow and steady progress wins the long race."
   ];
+  // ---- 문장 생성기: 조사(을/를·은/는)를 문법에 맞게 조합해 1000가지 이상 생성 ----
+  function jong(s){ const c=s.charCodeAt(s.length-1); if(c<0xAC00||c>0xD7A3)return false; return (c-0xAC00)%28!==0; }
+  const EUL=s=>s+(jong(s)?'을':'를');
+  const EUN=s=>s+(jong(s)?'은':'는');
+  const pick=a=>a[(Math.random()*a.length)|0];
+  function genSentence(){
+    const g=(Math.random()*4)|0;
+    if(g===0){ // 업무 완료 보고 (6×12×8 = 576)
+      const subj=pick(["담당자","각 부서","관련 팀","실무진","기획팀","영업팀"]);
+      const obj=pick(["보고서","견적서","회의 자료","정산 내역","계약 초안","발주 요청서","출장 보고","월간 실적","시장 조사","예산안","제안서","업무 일지"]);
+      const v=pick(["검토했습니다","정리했습니다","제출했습니다","확인했습니다","발송했습니다","공유했습니다","작성했습니다","보고했습니다"]);
+      return EUN(subj)+" "+EUL(obj)+" "+v+".";
+    }
+    if(g===1){ // 기한 요청 (8×8×5 = 320)
+      const obj=pick(["관련 자료","수정 사항","결재 서류","참석 여부","견적 내용","최종 파일","회의 일정","진행 상황"]);
+      const due=pick(["오늘","내일","이번 주","금요일까지","다음 주 월요일","월말","오전 중","퇴근 전"]);
+      const v=pick(["회신 부탁드립니다","제출해 주시기 바랍니다","확인 부탁드립니다","전달해 주세요","공유 부탁드립니다"]);
+      return EUL(obj)+" "+due+" "+v+".";
+    }
+    if(g===2){ // 일정 안내 (7×5×5 = 175)
+      const meet=pick(["정기 회의","부서 회의","고객사 미팅","주간 점검","월간 보고","킥오프 미팅","화상 회의"]);
+      const day=pick(["오는 월요일","이번 주 수요일","다음 주 화요일","돌아오는 금요일","내일"]);
+      const time=pick(["오전 열 시","오후 두 시","오후 세 시 반","정오","오전 아홉 시"]);
+      return EUN(meet)+" "+day+" "+time+"에 진행됩니다.";
+    }
+    // 일상 다짐 (5×6 = 30)
+    const a=pick(["오늘 하루도","이번 한 주도","지금 이 순간에도","작은 일에도","바쁜 와중에도"]);
+    const b=pick(["최선을 다하겠습니다","감사한 마음을 잊지 않겠습니다","한 걸음씩 나아가려 합니다","여유를 잃지 않으려 합니다","즐겁게 임하겠습니다","묵묵히 해내겠습니다"]);
+    return a+" "+b+".";
+  }
+  // 엄선 문장 30% + 생성 문장 70% (합쳐서 1000가지 이상)
+  function pickSentence(){ return Math.random()<0.3 ? pick(SENTENCES) : genSentence(); }
+
   const $=(s)=>document.querySelector(s);
   let target="", startT=null, done=0, timer=null;
 
@@ -140,7 +173,7 @@
   }
 
   function next(){
-    target=SENTENCES[(Math.random()*SENTENCES.length)|0];
+    target=pickSentence();
     startT=null; clearInterval(timer); timer=null;
     $('#typed').value=''; $('#typed').disabled=false;
     $('#result').textContent='';

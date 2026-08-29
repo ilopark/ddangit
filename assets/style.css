@@ -301,6 +301,15 @@ body.page{display:block;height:auto;min-height:100vh;overflow:auto;background:va
 
 /* 문의 게시판 컨테이너 */
 .board-box{margin-top:16px;border:1px solid var(--grid-line);border-radius:8px;padding:8px 14px;background:var(--cell-bg);min-height:120px}
+/* 문의 폼 */
+.cform{display:flex;flex-direction:column;gap:6px;margin-top:16px;max-width:520px}
+.cform label{font-size:13px;font-weight:600;margin-top:8px}
+.cform input,.cform textarea{width:100%;padding:10px 12px;border:1px solid var(--grid-line);
+  border-radius:6px;background:var(--cell-bg);color:var(--cell-fg);font-family:inherit;font-size:14px}
+.cform textarea{min-height:140px;resize:vertical}
+.cform input:focus,.cform textarea:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:var(--focus)}
+.cform button{align-self:flex-start;margin-top:14px}
+.cform .hp{position:absolute;left:-9999px}
 
 /* 접근성: 모션 감소 */
 @media (prefers-reduced-motion: reduce){

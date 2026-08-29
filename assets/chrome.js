@@ -215,7 +215,7 @@
     const gw=document.querySelector('.gamewrap');
     if(gw){
       const f=el('footer','site-foot');
-      f.innerHTML='<a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>'+
+      f.innerHTML='<a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>'+
         '<br>© 딴짓 스프레드시트 · 회사에서 심심할 때 하는 무료 웹게임';
       gw.appendChild(f);
     }

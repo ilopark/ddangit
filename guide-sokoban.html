@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소코반 상자를 구석에 박지 않는 법 — 데드락 피하기 | 딴짓 스프레드시트</title>
+<meta name="description" content="소코반(창고지기)에서 상자를 못 빼는 상황을 피하는 법. 벽과 구석의 위험, 목표에서 거꾸로 생각하기, 되돌리기 활용까지 실제 조작과 함께 정리했습니다.">
+<meta name="keywords" content="소코반 공략, 창고지기 푸는법, sokoban 팁, 상자 밀기 게임 전략">
+<link rel="canonical" href="https://ilopark.github.io/ddangit/guide-sokoban.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="소코반 상자를 구석에 박지 않는 법 — 데드락 피하기">
+<meta property="og:description" content="상자를 못 빼는 데드락을 피하고 목표에서 거꾸로 푸는 소코반 요령.">
+<meta property="og:url" content="https://ilopark.github.io/ddangit/guide-sokoban.html">
+<meta name="theme-color" content="#217346">
+<meta property="og:image" content="https://ilopark.github.io/ddangit/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://ilopark.github.io/ddangit/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('ddanjit-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"소코반 상자를 구석에 박지 않는 법","inLanguage":"ko","author":{"@type":"Organization","name":"딴짓 스프레드시트"},"publisher":{"@type":"Organization","name":"딴짓 스프레드시트"},"datePublished":"2026-08-29"}
+</script>
+</head>
+<body class="page">
+<header class="page-top">
+  <a class="brand" href="index.html"><span class="doticon">X</span> 딴짓 스프레드시트</a>
+  <a class="backlink" href="sokoban.html">← 소코반 하러 가기</a>
+</header>
+<main class="page-main">
+  <article class="doc">
+    <h1>소코반은 상자를 밀 수만 있다</h1>
+    <p class="updated">그래서 구석이 무섭다</p>
+
+    <p class="lead">소코반이 다른 퍼즐과 다른 점은 딱 하나입니다. 상자를 <b>밀 수는 있어도 당길 수는 없습니다.</b> 이 규칙 하나 때문에, 상자를 잘못 민 순간 판이 통째로 막혀 버립니다. <a href="sokoban.html">소코반</a>의 실력은 상자를 목표에 올리는 기술이 아닙니다. 못 빼는 자리로 밀지 않는 신중함에서 나옵니다.</p>
+
+    <h2>구석에 붙은 상자는 끝이다</h2>
+    <p>상자가 벽 모서리, 그러니까 두 벽이 만나는 구석에 닿으면 어느 방향으로도 밀 수 없습니다. 목표 지점이 그 구석이 아닌 이상, 구석에 박힌 상자는 그 판을 포기해야 한다는 뜻입니다. 벽 한 면에 딱 붙은 상자도 위험합니다. 벽을 따라서만 밀 수 있어 이동이 크게 제한됩니다.</p>
+    <p>그래서 상자를 밀기 전에 한 번 묻습니다. 이걸 밀면 다시 반대로 밀어 낼 공간이 남는가.</p>
+
+    <h2>목표에서 거꾸로 생각한다</h2>
+    <p>어떤 상자를 어느 목표에 넣을지를 먼저 정합니다. 그 목표까지 가는 경로를 거슬러 올라가며 봅니다. 상자를 어느 방향에서 밀어야 하는지가 정해지면, 플레이어가 그 반대편에 설 공간이 있는지가 보입니다. 무작정 가까운 상자부터 미는 것보다 이 순서가 훨씬 덜 막힙니다.</p>
+
+    <h3>막혔을 때</h3>
+    <p>이 게임에는 안전장치가 두 개 있습니다.</p>
+    <ul>
+      <li><b>Z</b>는 한 수씩 되돌리기입니다. 잘못 밀었다 싶으면 바로 되돌리면 됩니다</li>
+      <li><b>R</b>은 그 판을 처음부터 다시 시작합니다. 완전히 꼬였을 때 씁니다</li>
+      <li>이동은 방향키나 W·A·S·D, 난이도는 상자 두 개부터 네 개까지</li>
+    </ul>
+    <p>되돌리기가 무제한입니다. 막혀도 손해가 없습니다. 겁내지 말고 이 방향이 맞나 시험 삼아 밀어 보고, 아니면 Z로 물리세요.</p>
+
+    <h2>손으로 만든 명작 같은 맛은 덜하다</h2>
+    <p>이 게임의 판은 매번 자동으로 만들어집니다. 항상 풀 수 있도록 보장돼 있습니다. 다만 사람이 공들여 설계한 소코반처럼 무릎을 치게 만드는 '한 수'가 숨어 있지는 않습니다. 가끔은 몇 수 만에 끝나는 쉬운 판도 나옵니다. 대신 같은 판을 두 번 볼 일이 없고, 되돌리기가 넉넉해서 처음 접하기에는 부담이 적습니다.</p>
+
+    <p>구석의 위험만 몸에 익으면 어려움 난이도도 풀립니다. <a href="sokoban.html">소코반</a>을 켜서 상자를 밀기 전에 한 박자 멈추는 연습부터 해 보세요. 상자 대신 숫자를 미는 감각이 좋다면 <a href="index.html">2048</a>이 옆 탭에 있습니다.</p>
+  </article>
+</main>
+<footer class="page-foot">
+  <a href="index.html">홈</a> · <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>
+  <div style="margin-top:8px">© 딴짓 스프레드시트</div>
+</footer>
+</body>
+</html>

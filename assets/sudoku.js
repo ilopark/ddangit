@@ -1,7 +1,8 @@
 /* sudoku.js — 스도쿠 (재고 시트) */
 (function(){
   "use strict";
-  let solution, puzzle, given, notes, sel=-1, holes=44, notesMode=false;
+  let solution, puzzle, given, notes, sel=-1, holes=44, notesMode=false, mistakes=0, dead=false;
+  const MAXMISS=3;
   const $=(s)=>document.querySelector(s);
   const peers=(i)=>{ // 같은 행·열·3x3 박스 인덱스
     const r=(i/9)|0,c=i%9,set=new Set();
@@ -14,7 +15,8 @@
   function build(){
     $('#scorebox').innerHTML=
       '<div class="stat"><div class="k">난이도</div><div class="v" id="diffLabel" style="font-size:13px">보통</div></div>'+
-      '<div class="stat"><div class="k">빈칸</div><div class="v num" id="blanks">0</div></div>';
+      '<div class="stat"><div class="k">빈칸</div><div class="v num" id="blanks">0</div></div>'+
+      '<div class="stat"><div class="k">실수</div><div class="v num" id="miss">0/3</div></div>';
     $('#play').innerHTML=
       '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">'+
         '<button class="btn" id="newgame" type="button">새 시트(F9)</button>'+
@@ -23,7 +25,7 @@
         '<button class="btn ghost dif" data-h="44" type="button" aria-pressed="true">보통</button>'+
         '<button class="btn ghost dif" data-h="52" type="button">어려움</button>'+
       '</div>'+
-      '<p class="sub" style="color:var(--muted);font-size:11.5px;margin:-4px 0 8px">노트 모드에서 숫자를 누르면 후보 메모 · 칸 선택 시 같은 행·열·블록이 강조됩니다</p>'+
+      '<p class="sub" style="color:var(--muted);font-size:11.5px;margin:-4px 0 8px">틀린 숫자는 빨간색으로 표시되고, 실수 3회면 게임 오버 · 노트 모드로 후보 메모</p>'+
       '<div class="board" id="board" role="grid" aria-label="스도쿠 판" tabindex="0"'+
         ' style="grid-template-columns:repeat(9,40px);grid-template-rows:repeat(9,40px)"></div>'+
       '<div id="pad" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;max-width:360px"></div>'+
@@ -106,7 +108,9 @@
       if(countSolutions(puzzle,2)!==1){ puzzle[p]=saved; }  // 유일하지 않으면 되돌림
       else { given[p]=false; removed++; }
     }
-    sel=-1;
+    sel=-1; mistakes=0; dead=false;
+    if($('#miss'))$('#miss').textContent='0/'+MAXMISS;
+    $('#banner').classList.remove('show');
     render();
     window.DDANJIT.setStatus('입력 대기', removed);
   }
@@ -139,27 +143,42 @@
     highlightConflicts();
   }
   function highlightConflicts(){
+    // 유일 정답과 다르면 오답 → 빨강 (선택 여부와 무관하게 표시)
     for(let i=0;i<81;i++){
       if(!puzzle[i]||given[i])continue;
-      const saved=puzzle[i];puzzle[i]=0;
-      const bad=!ok(puzzle,i,saved);
-      puzzle[i]=saved;
-      const c=$('#board').children[i];
-      if(bad&&i!==sel){c.style.background='var(--bad-bg)';c.style.color='var(--bad)';}
+      if(puzzle[i]!==solution[i]){
+        const c=$('#board').children[i];
+        c.style.background='var(--bad-bg)'; c.style.color='var(--bad)';
+      }
     }
   }
-  function select(i){ if(window.DDANJIT.bossActive)return; sel=i; render(); $('#board').focus(); }
+  function select(i){ if(window.DDANJIT.bossActive||dead)return; sel=i; render(); $('#board').focus(); }
   function enter(n){
-    if(window.DDANJIT.bossActive||sel<0||given[sel])return;
+    if(window.DDANJIT.bossActive||dead||sel<0||given[sel])return;
     if(notesMode && n>0){
       if(puzzle[sel])return;                 // 값이 있는 칸엔 노트 불가
       if(notes[sel].has(n))notes[sel].delete(n); else notes[sel].add(n);
       render(); return;
     }
+    const prev=puzzle[sel];
     puzzle[sel]=n;
-    if(n>0)notes[sel].clear();               // 값 입력 시 노트 제거
+    if(n>0){
+      notes[sel].clear();                    // 값 입력 시 노트 제거
+      if(n!==solution[sel] && n!==prev){      // 새로 넣은 틀린 숫자 → 실수 1
+        mistakes++;
+        $('#miss').textContent=mistakes+'/'+MAXMISS;
+        if(mistakes>=MAXMISS){ render(); return gameOver(); }
+      }
+    }
     render();
     if(n>0)checkWin();
+  }
+  function gameOver(){
+    dead=true;
+    $('#bt').textContent='게임 오버';
+    $('#bm').textContent='실수 '+MAXMISS+'회 — 새 퍼즐로 다시 도전하세요';
+    $('#banner').classList.add('show');
+    window.DDANJIT.setStatus('게임 오버', 0);
   }
   function onKey(e){
     if(window.DDANJIT.bossActive)return;
